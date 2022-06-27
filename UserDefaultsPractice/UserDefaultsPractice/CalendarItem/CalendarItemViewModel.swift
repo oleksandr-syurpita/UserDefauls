@@ -5,18 +5,25 @@
 //  Created by Vasyl Nadtochii on 07.06.2022.
 //
 
+
 import Foundation
 
 class CalendarItemViewModel: ObservableObject {
-    let number: Int 
+    var userDefaultsService: UserDefaultsService
+    let number: Int
     @Published var completed: Bool {
         didSet {
-            UserDefaults.standard.set(self.completed, forKey: "\(number)")
+            self.userDefaultsService.saveInUserDefault(value: completed, for: number)
         }
     }
     
-    init(number: Int, completed: Bool = false) {
+    func onTap() {
+        completed.toggle()
+    }
+    
+    init(number: Int, userProtocol: UserDefaultsService) {
         self.number = number
-        self.completed =  UserDefaults.standard.bool(forKey: "\(number)")
+        self.userDefaultsService = userProtocol
+        self.completed = userDefaultsService.getValue(for: number)
     }
 }

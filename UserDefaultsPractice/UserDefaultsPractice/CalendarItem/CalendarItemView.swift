@@ -20,7 +20,7 @@ struct CalendarItemView: View {
             .background(viewModel.completed ? .green : .red)
             .cornerRadius(.infinity)
             .onTapGesture {
-                viewModel.completed.toggle()
+                viewModel.onTap()
             }
     }
 }
@@ -28,8 +28,8 @@ struct CalendarItemView: View {
 struct CalendarItemView_Previews: PreviewProvider {
     static var previews: some View {
         HStack {
-            CalendarItemView(viewModel: .init(number: 1))
-            CalendarItemView(viewModel: .init(number: 24, completed: true))
+            CalendarItemView(viewModel: .init(number: 1, userProtocol: UserDefaultsServiceImpl()))
+            CalendarItemView(viewModel: .init(number: 24, userProtocol: UserDefaultsServiceImpl()))
         }
     }
 }

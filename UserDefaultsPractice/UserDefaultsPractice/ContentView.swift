@@ -26,7 +26,7 @@ struct ContentView: View {
             VStack {
                 LazyVGrid(columns: columns) {
                     ForEach(data, id: \.self) { number in
-                        CalendarItemView(viewModel: .init(number: number))
+                        CalendarItemView(viewModel: .init(number: number, userProtocol: UserDefaultsServiceImpl()))
                     }
                 }
                
